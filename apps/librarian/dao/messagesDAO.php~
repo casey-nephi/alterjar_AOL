@@ -1,0 +1,127 @@
+  <?php
+    include 'dao/BaseDAO.php';
+    
+    class messagesDAO extends BaseDAO{
+        
+      
+                 function phonebook_delete($id, $user){
+                        $this->openConn();
+                        $stmt = $this->dbh->prepare("DELETE FROM ".$user." WHERE contact_id=?");
+                        $stmt->bindParam(1, $id);
+                        $stmt->execute();
+                        
+                        $this->closeConn();
+                  
+                  }
+                   
+                 
+	               function phonebook_search($Username,$Firstname){
+				                $this->openConn();
+                                      
+                            $stmt =$this->dbh->prepare("SELECT * FROM ".$Username." WHERE Firstname= ?");
+                            $stmt->bindParam(1, $Firstname);
+                            $stmt->execute();
+				             	
+				             	if($row = $stmt->fetch()){
+				             	echo "<tr>";
+       							    
+			                      echo "<td>".$row[0]."</td>";
+			                      echo "<td>".$row[1]."</td>";
+			                      echo "<td>".$row[2]."</td>";
+								       echo "<td>".$row[3]."</td>";
+								       
+				                   echo "</tr>";
+				             	}
+				             	else{
+				             		echo"No Match Found";
+				             	}
+				             	  
+				                   
+								           $this->closeConn();
+		             }
+	               function show_user($user){
+
+								       $this->openConn();
+                                      
+                            	$stmt =$this->dbh->prepare("SELECT id, Username FROM Register where Username != ? ");
+                            	$stmt->bindParam(1, $user);
+                            	$stmt->execute();
+								
+
+				                while($row = $stmt->fetch()){
+								      echo "<tr>";
+			                     echo "<td>".$row[0]."</td>";
+			                     echo "<td>".$row[1]."</td>";
+			                     echo "<td><button id='pick' onclick='pick(".$row[0].")'>PICK</button></td>";
+								      echo "</tr>";	
+										                   
+				                }
+								           
+                                   $this->closeConn();
+		             }
+		             function getData($id,$user){
+		             
+		               $this->openConn();
+		                    
+		                    $stmt = $this->dbh->prepare("SELECT Firstname,Lastname,Number FROM ".$user." WHERE contact_id=?");
+		                    $stmt->bindParam(1,$id);
+		                    $stmt->execute();
+		                    
+		                    $record = $stmt->fetch();
+			                 $list = array( "share_firstname"=>$record[0], "share_lastname"=>$record[1], "share_number"=>$record[2]);
+			                 $json_string = json_encode($list);			
+			                 echo $json_string;
+			
+			                 $this->closeConn();
+		             
+		             }
+		      /*function contact_share(){
+			       	$this->openConn();
+			       	$stmt =$this->dbh->prepare("insert into ? (Firstname,Lastname,Number) select from ? where user_id=?");
+			       	
+                            	$stmt->execute();
+			       
+			         $this->closeConn();
+		      }*/
+		         
+		         function share($shareto,$FN,$LN,$N){
+		              
+		              $this->openConn();
+                        $stmt = $this->dbh->prepare("INSERT INTO ".$shareto."2 (Firstname, Lastname, Number) values (?,?,?)");
+                        $stmt->bindParam(1, $FN);
+                        $stmt->bindParam(2, $LN);
+                        $stmt->bindParam(3, $N);
+                        $stmt->execute();
+                        $id = $this->dbh->lastInsertId();
+                        
+                        echo "<tr>";
+                        echo "<td><img src='images/sen.png' id='user_icon' onclick='show_user(".$id.")' /></td>";
+                        echo "<td>".$id."</td>";
+                        echo "<td>".$firstname."</td>";
+                        echo "<td>".$lastname."</td>";
+                        echo "<td>".$number."</td>";
+                        echo "<td><img src='images/Delete-icon.png'  onclick='deletelist(".$id.")'/></td>";
+		                  
+
+                        echo "<tr>";
+                        
+                        $this->closeConn();
+
+                      
+                        
+                        
+		         
+		         }
+		             
+		             function acceptContacts($firstname, $lastname, $number, $Username){
+			               $stmt = $this ->dbh->prepare("INSERT INTO ".$Username." SELECT Firstname, Lastname, Number from joanne");
+			               $stmt->bindParam(1, $firstname);
+			               $stmt->bindParam(2, $lastname);
+			               $stmt->bindParam(3, $number);
+			
+		               }
+            
+ }
+	      
+            
+  

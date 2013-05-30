@@ -1,0 +1,331 @@
+
+h1{
+	color: white;
+	font-family:Blippo, fantasy;
+	text-align:center;
+}
+
+body{
+    
+  
+      margin-top:250px;
+     
+	 background: url('../images/blurred.jpg') no-repeat center top;
+	 -webkit-background-size: cover;
+				-moz-background-size: cover;
+				background-size: cover;
+	
+}
+img{
+cursor:pointer;
+}
+#hello{
+color:white;
+text-decoration:blink;
+
+}
+#war{
+border:white 5px solid;
+background:black;
+color:white;
+text-align:center;
+margin-left:500px;
+margin-right:500px;
+}
+#war1{
+margin:10px;
+float:left;
+}
+/*///////////////////////////////////////////////////////////////*/
+#login_form,#add_form{
+    /*border:5px solid red;
+    margin: 10px auto;
+    padding:10px auto;
+    background-color: pink;
+    width:400px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    font-size:20px;
+    box-shadow: 10px 10px 5px black;*/
+    font-family: 'Ubuntu', 'Lato', sans-serif;
+    font-weight: 400;
+    color:white;
+    /* Size and position */
+    width: 300px;
+    position: relative;
+    margin: 60px auto 30px;
+    padding: 10px;
+    overflow: hidden;
+
+    /* Styles */
+    background: #111; 
+    border-radius: 0.4em;
+    border: 1px solid #191919;
+    box-shadow: 
+        inset 0 0 2px 1px rgba(255,255,255,0.08), 
+        0 16px 10px -8px rgba(0, 0, 0, 0.6);
+}
+.form input[type=text]:hover,
+.form input[type=password]:hover {
+    background: #27292c;
+}
+
+.form input[type=text]:focus, 
+.form input[type=password]:focus {
+    box-shadow: inset 0 0 2px #000;
+    background: #494d54;
+    border-color: #51cbee;
+    outline: none; /* Remove Chrome outline */
+}
+
+.form p:nth-child(3),
+.form p:nth-child(4) {
+    float: left;
+    width: 50%;
+}
+.form input[type=text],
+.form input[type=password] {
+    /* Size and position */
+    width: 50%;
+    float: left;
+    padding: 8px 5px;
+    margin-bottom: 10px;
+    font-size: 12px;
+
+    /* Styles */
+    background: #1f2124; /* Fallback */
+    background: -moz-linear-gradient(#1f2124, #27292c);
+    background: -ms-linear-gradient(#1f2124, #27292c);
+    background: -o-linear-gradient(#1f2124, #27292c);
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#1f2124), to(#27292c));
+    background: -webkit-linear-gradient(#1f2124, #27292c);
+    background: linear-gradient(#1f2124, #27292c);    
+    border: 1px solid #000;
+    box-shadow:
+        0 1px 0 rgba(255,255,255,0.1);
+    border-radius: 3px;
+
+    /* Font styles */
+    font-family: 'Ubuntu', 'Lato', sans-serif;
+    color: #fff;
+
+}
+
+.form input[type=text]:hover,
+.form input[type=password]:hover,
+.form label:hover ~ input[type=text],
+.form label:hover ~ input[type=password] {
+    background: #27292c;
+}
+
+.form input[type=text]:focus, 
+.form input[type=password]:focus {
+    box-shadow: inset 0 0 2px #000;
+    background: #494d54;
+    border-color: #51cbee;
+    outline: none; /* Remove Chrome outline */
+}
+
+.form p:nth-child(3),
+.form p:nth-child(4) {
+    float: left;
+    width: 50%;
+}
+.form:before {
+    /* Size and position */
+    content: "";
+    width: 8px;
+    height: 5px;
+    position: absolute;
+    left: 34%;
+    top: -7px;
+    
+    /* Styles */
+    border-radius: 50%;
+    box-shadow: 0 0 6px 4px #fff;
+}
+
+.form p:nth-child(1):before{
+    /* Size and position */
+    content:"";
+    width:250px;
+    height:100px;
+    position:absolute;
+    top:0;
+    left:45px;
+
+    /* Styles */
+    -webkit-transform: rotate(75deg);
+    -moz-transform: rotate(75deg);
+    -ms-transform: rotate(75deg);
+    -o-transform: rotate(75deg);
+    transform: rotate(75deg);
+    background: -moz-linear-gradient(50deg, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    background: -ms-linear-gradient(50deg, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    background: -o-linear-gradient(50deg, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    background: -webkit-linear-gradient(50deg, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    background: linear-gradient(50deg, rgba(255,255,255,0.15), rgba(0,0,0,0));
+    pointer-events:none;
+}
+
+.no-pointerevents .form p:nth-child(1):before {
+    display: none;
+}
+/*//////////////////////////////////////////////////////////////////////////////////////////////*/
+#div_login, #register_link{
+   background-color: blue;
+   border:3px solid blue;
+   -moz-border-radius:20px;
+   -webkit-border-radius:20px;
+   width:200px;
+   margin:10px auto;
+   padding:20px auto;
+   text-align: center;
+   font-size:30px;
+   
+}
+
+h2,h3{
+    font-size:30px;
+    color:black;
+    margin: 10px auto;
+    padding: 10px 5px 10px 5px;
+    text-shadow:5px 5px 5px white;
+}
+
+#register_btn {
+   border:3px dashed yellow;
+   -moz-border-radius:20px;
+   -webkit-border-radius:20px;
+   width: 150px;
+   font-size:10px;
+   font-family:Arial, sans-serif;
+}
+
+
+marquee{
+   behaviour: alternate;
+   text-shadow:5px 5px 5px white;
+   font-style: bold;
+   font-size: 30px;
+   width:500px;
+   font-family: Times New Roman;
+}
+#viewlist, #user_table{
+   border: 5px groove blue;
+   cursor: pointer;
+ 
+   border-radius:20px;
+   padding: 20px auto;
+   margin: 20px auto;
+   width:250px;
+   box-shadow: 10px 10px 5px black;
+   font-size:20px;
+   font-family: Arial, sans-serif;
+}
+#search_table{
+   border: 1px groove blue;
+   cursor: pointer;
+   background-color: transparent;
+   border-radius:20px;
+   
+   width:250px;
+   box-shadow: 10px 10px 5px black;
+   font-size:20px;
+   font-family: Arial, sans-serif;
+}
+td{
+   
+   border: 1px dashed white;
+   -moz-border-radius:3px;
+   -webkit-border-radius:5px;
+   
+}
+/*#add_form{
+   border:5px groove red;
+    margin: 10px auto;
+    padding:10px auto;
+    background-color: pink;
+    width:400px;
+    -moz-border-radius:20px;
+    -webkit-border-radius:20px;
+    box-shadow: 10px 10px 5px black;
+}*/
+
+
+#searchID{
+   box-shadow:10px 10px 5px black;   
+}
+td:hover{
+   background-color: white;
+   border: 1px dashed black;
+   color:black;
+}
+#search_img{
+   width: 30px;
+   height:30px;
+}
+#search_img:hover{
+   width:50px;
+   height:50px;
+   
+   transform:rotate(180deg);
+   -moz-transform:rotate(180deg); /* Firefox 4 */
+   -webkit-transform:rotate(180deg); /* Safari and Chrome */
+   -o-transform:rotate(180deg); /* Opera */
+}
+#share_img{
+   width:50px;
+  
+}
+#open_dialog_add{
+	width:100px;
+	font-family: Broadway;
+		
+}
+
+#dialog_form, #delete_dialog, #dialog_share, #dialog_register{
+	padding:10px auto;
+	
+	float: left;
+	border:1px dashed blue;
+	margin: 0 7px 20px 0;
+	display: none;
+}
+#calendar{
+	float:right;
+	font-family:Broadway;
+	
+}
+
+#viewlist{
+float:right;
+background:black;
+color:white;
+}
+#contact{
+border:5px solid white;
+margin:100px;
+padding:50px;
+text-align:center;
+
+}
+#search{
+border:5px solid white;
+margin-left:500px;
+margin-right:500px;
+padding:50px;
+text-align:center;
+
+}
+#search_table{
+margin-left:50px;
+
+}
+#pic{
+border:5px solid white;
+margin:100px;
+padding:50px;
+text-align:center;
+
+}

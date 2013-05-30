@@ -1,0 +1,162 @@
+$(document).ready(function(){
+
+	 
+   
+function deletelist2(id){
+   	 var deleteObj={"id":id};
+									$.ajax ({
+								
+										   type:"POST",
+										   url:"delete_msg.php",
+										   data:deleteObj,
+										   
+										   success: function(data){
+										  
+										         $(document.getElementById(deleteObj.id)).remove();
+										   		 $(document.location.reload(true));
+										   },
+										   error: function(data){
+										     
+										   }
+									}); 
+		 
+}
+
+
+
+function pick2(id){
+  
+  var pickObj={"id":id};
+
+ 
+
+      $.ajax({
+											type:"POST",
+											data:pickObj,
+											url:"getContactBeingShared.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													$("input[name='pick_id']").val(obj.pick_id);
+												  
+													$("input[name='shareto']").val(obj.shareto);
+													
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+
+ 
+
+}
+function show_user2(id){
+   
+    var editObj={"id":id};
+ 
+ 	             $.ajax({
+											type:"POST",
+											data:editObj,
+											url:"getData.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													
+												  
+													$("input[name='share_firstname']").val(obj.share_firstname);
+													$("input[name='share_lastname']").val(obj.share_lastname);
+													$("input[name='share_number']").val(obj.share_number);
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+		
+
+					$("#dialog_share").dialog({
+						autoOpen:true,
+						resizable: false,
+						modal:true,
+						hide:"explode",
+						buttons:{
+						"Share": function(){
+			           
+			            var shareObj={
+			                        
+			                        "contact":$("input[name='shareto']").val(),
+			                         "FN":$("input[name='share_firstname']").val(),
+			                         "LN":$("input[name='share_lastname']").val(),
+			                         "N":$("input[name='share_number']").val()
+			                        };
+			                        
+			                 $.ajax({
+										type:"POST",
+										
+										data:shareObj,
+										url:"sharing.php",
+										success: function(data){
+										   alert($( "input[name='shareto']").val());
+											
+										 
+										}
+										
+			});       
+			           
+								$( this ).dialog("close");		
+							},
+							"Share to": function(){
+			           
+			           
+               $.ajax({
+										type:"POST",
+										
+										
+										url:"showUser.php",
+										success: function(data){
+											$("#user_table").html(data);
+										 
+										},
+										error: function(data){
+			
+										}
+			});
+			           
+								
+							},
+							 Cancel: function(){
+								$( this ).dialog("close");
+							 }
+						}
+					
+					});
+				
+			
+				
+}
+/*function acceptContact(){
+
+	  
+		$.ajax({
+			type:"POST",
+			url:"acceptContact.php",
+		
+			success:function(){
+				$("#viewlist").append(data);
+			},
+			error:function(){
+				alert(data);
+			}
+			
+		});
+
+}*/
+
+					
+}
+
+
+

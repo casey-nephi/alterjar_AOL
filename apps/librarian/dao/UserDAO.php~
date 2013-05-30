@@ -1,0 +1,96 @@
+<?php
+    include 'dao/BaseDAO.php';
+    
+    class UserDAO extends BaseDAO{
+        
+        
+		         
+            function logIn($Username,$Password){
+      	
+                  $this->openConn();
+                  		
+                  $stmt = $this->dbh->prepare(" select * from Register where Username=? and Password =?");
+		            $stmt->bindParam(1,$Username);
+		            $stmt->bindParam(2,$Password);
+                  $stmt->execute();
+                  
+		               		
+              	if($row = $stmt->fetch()){
+                    return true;
+
+               }else{
+			           return false;
+			      }
+                  										
+                  $this->closeConn();
+                  
+               }
+             function getUser($Username,$Password){
+      	
+                  $this->openConn();
+                  		
+                  $stmt = $this->dbh->prepare(" select Username from Register where Username=? and Password =?");
+		            $stmt->bindParam(1,$Username);
+		            $stmt->bindParam(2,$Password);
+                  $stmt->execute();
+                  
+		               		
+              	   $row = $stmt->fetch();
+                    return $row[0];
+
+                  										
+                  $this->closeConn();
+                  
+               }
+             function register($Username,  $Password, $Password2){
+                  $this->openConn();
+                  
+                  $stmt= $this->dbh->prepare("INSERT INTO Register(Username,  Password, Password2)values (?,?,?)");
+                  $stmt->bindParam(1, $Username);
+		           
+                  $stmt->bindParam(2, $Password);
+                  $stmt->bindParam(3, $Password2);
+                  $stmt->execute();
+                  $id = $this->dbh->lastInsertId();
+                 
+                  
+                  $stmt = $this->dbh->prepare("CREATE TABLE ".$Username."(contact_id int not null auto_increment primary key,  Firstname varchar(20) , Lastname varchar(20), Number varchar(20) )");
+                  $stmt->execute();
+                  
+                  $stmt = $this->dbh->prepare("CREATE TABLE ".$Username."2 (shared_id int not null auto_increment primary key, Firstname varchar(20) , Lastname varchar(20), Number varchar(20) )");
+                  $stmt->execute();
+                  
+           
+                  $this->closeConn(); 
+              }
+              function getContactToShared($id){
+					             $this->openConn();
+		                    
+		                    $stmt = $this->dbh->prepare("SELECT id,Username FROM Register WHERE id=?");
+		                    $stmt->bindParam(1,$id);
+		                    $stmt->execute();
+		                    
+		                    $record = $stmt->fetch();
+			                 $list = array( "pick_id"=>$record[0],"shareto"=>$record[1]);
+			                 $json_string = json_encode($list);			
+			                 echo $json_string;
+			
+			                 $this->closeConn();
+		              }
+		              function getContactToShared2($id){
+					             $this->openConn();
+		                    
+		                    $stmt = $this->dbh->prepare("SELECT id,Username FROM Register WHERE id=?");
+		                    $stmt->bindParam(1,$id);
+		                    $stmt->execute();
+		                    
+		                    $record = $stmt->fetch();
+			                 $list = array( "pick_id"=>$record[0],"shareto"=>$record[1]);
+			                 $json_string = json_encode($list);			
+			                 echo $json_string;
+			
+			                 $this->closeConn();
+		              }
+              
+      }
+?>

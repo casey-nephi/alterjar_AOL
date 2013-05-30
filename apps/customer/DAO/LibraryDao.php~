@@ -1,0 +1,105 @@
+<?php
+    
+    include 'BaseDAO.php';
+    
+    class LibraryDAO extends BaseDAO {
+    
+       function viewLove(){
+         
+        $this->openConn();
+			$stmt = $this->dbh->prepare("SELECT * FROM love");
+			$stmt->execute();
+
+			$this->closeConn();
+
+			while($row = $stmt->fetch()){
+				echo "<tr>";
+				echo "<td>".$row[0]."</td>";
+				echo "<td>".$row[1]."</td>";
+				echo "<td>".$row[2]."</td>";
+				echo "<td><img class='rent' src='images/rent.png' onclick='rentlovebook( '".$row[1]."%',".$row[2].")'</td>";
+				echo "</tr>"; 
+			}
+
+       }
+       function viewAction(){
+         
+        $this->openConn();
+			$stmt = $this->dbh->prepare("SELECT * FROM action");
+			$stmt->execute();
+
+			$this->closeConn();
+
+			while($row = $stmt->fetch()){
+				echo "<tr>";
+				echo "<td>".$row[0]."</td>";
+				echo "<td>".$row[1]."</td>";
+				echo "<td>".$row[2]."</td>";
+				echo "<td><img class='rent' src='images/rent.png' onclick='rentactionbook(".$row[0].")'</td>";
+				echo "</tr>"; 
+			}
+
+       }
+       function viewComedy(){
+         
+        $this->openConn();
+			$stmt = $this->dbh->prepare("SELECT * FROM comedy");
+			$stmt->execute();
+
+			$this->closeConn();
+
+			while($row = $stmt->fetch()){
+				echo "<tr>";
+				echo "<td>".$row[0]."</td>";
+				echo "<td>".$row[1]."</td>";
+				echo "<td>".$row[2]."</td>";
+				echo "<td><img class='rent' src='images/rent.png' onclick='rentcomedybook(".$row[0].")'</td>";
+				echo "</tr>"; 
+			}
+
+       }
+       function viewHorror(){
+         
+        $this->openConn();
+			$stmt = $this->dbh->prepare("SELECT * FROM horror");
+			$stmt->execute();
+
+			$this->closeConn();
+
+			while($row = $stmt->fetch()){
+				echo "<tr>";
+				echo "<td>".$row[0]."</td>";
+				echo "<td>".$row[1]."</td>";
+				echo "<td>".$row[2]."</td>";
+				echo "<td><img class='rent' src='images/rent.png' onclick='renthorrorbook(".$row[0].")'</td>";
+				echo "</tr>"; 
+			}
+
+       }
+       function retrievelovebook($book,$rentprice){
+         
+
+			$this->openConn();
+	
+			$stmt = $this->dbh->prepare("INSERT INTO rent(BookRent, RentPrice) VALUES('?',?)");
+			$stmt->bindParam(1, $book);
+			$stmt->bindParam(2, $rentprice);
+			$stmt->execute();
+			$id = $this->dbh->lastInsertId();
+ 
+			$this->closeConn();
+
+			echo "<tr id=".$id.">";
+			echo "<td>".$book."</td>";
+			echo "<td>".$rentprice."</td>";
+			echo "<td><img class='delete' src='images/del.png' onclick='deleteWord(".$id.")'/></td>";
+			echo "</tr>"; 
+
+			
+       }
+      
+       
+       
+    
+    }
+?>

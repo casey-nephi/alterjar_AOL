@@ -1,0 +1,136 @@
+$(document).ready(function(){
+ 
+  $('#deliver').hide();
+   $('#over').hide();
+  $("#tl").hide();
+  //-------------------------------------------------
+  $("#love").click(function(){
+  $('#ta').hide();
+  $('#tc').hide();
+  $('#th').hide();
+  	$("#tl").slideToggle(200);
+  });
+  
+    $.ajax({
+			type: "POST",
+			url: "view_Love.php",
+			success: function(data){
+				$("#tlb").append(data);		
+			},
+			error: function(data){
+				alert(data);	
+			}
+		});
+   	 
+  //-------------------------------------------------
+  
+   $("#ta").hide();
+  $("#action").click(function(){
+  $('#tl').hide();
+  $('#tc').hide();
+  $('#th').hide();
+  	$("#ta").slideToggle(200);
+  });
+  
+    $.ajax({
+			type: "POST",
+			url: "view_Action.php",
+			success: function(data){
+				$("#tab").append(data);		
+			},
+			error: function(data){
+				alert(data);	
+			}
+		});
+   	 //-----------------------------------------------
+   
+   $("#tc").hide();
+  $("#comedy").click(function(){
+  $('#tl').hide();
+  $('#ta').hide();
+  $('#th').hide();
+  	$("#tc").slideToggle(200);
+  });
+  
+    $.ajax({
+			type: "POST",
+			url: "view_Comedy.php",
+			success: function(data){
+				$("#tcb").append(data);		
+			},
+			error: function(data){
+				alert(data);	
+			}
+		});
+   	 //-------------------------------------------------------
+		 
+   $("#th").hide();
+  $("#horror").click(function(){
+  $('#tl').hide();
+  $('#tc').hide();
+  $('#ta').hide();
+  	$("#th").slideToggle(200);
+  });
+  
+    $.ajax({
+			type: "POST",
+			url: "view_Horror.php",
+			success: function(data){
+				$("#thb").append(data);		
+			},
+			error: function(data){
+				alert(data);	
+			}
+		});
+   	 
+    //-------------------------------------------------------
+    
+    function rentlovebook ( book,rentprice){
+        var bookObj = {
+						'tittle':book, 
+						'rentprice':rentprice
+						};
+		 $.ajax({
+			type: "POST",
+			data: bookObj,
+			url: "r_love.php",
+			success: function(data){
+			     console.log(data);
+				$('#tr').append(data);		
+			},
+			error: function(data){
+				alert(data);	
+			}
+					
+						
+	});
+    
+    //------------------------------------------------------
+    $('#submit').click(function(){
+      
+       $('#deliver').hide();
+      
+    
+    });
+    //------------------------------------------------------
+    $('#submit1').click(function(){
+      
+      
+       $('#over').hide();
+    
+    });
+    //------------------------------------------------------
+    $('#order').click(function(){
+       var x=confirm("Do you want it deliver it to you? \n (NOTE: The delivery service only works in inside the city.)")
+       if(x==true){
+          $('#deliver').show();
+       }else{
+          $('#over').show();
+       }
+       
+    
+    });
+	
+});
+
+

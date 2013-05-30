@@ -1,0 +1,23 @@
+body{
+
+
+	text-align:center;
+
+}
+#log-out{
+  float: right;
+}
+#hello{
+  float: left;
+  border-right:2px white solid ;
+}
+img,li{
+cursor:pointer;
+}
+
+#tlb{
+    overflow-y: scroll;
+    height: 10px;
+
+}
+

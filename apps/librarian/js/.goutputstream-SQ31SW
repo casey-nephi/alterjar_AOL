@@ -1,0 +1,612 @@
+$(document).ready(function(){
+
+	   $.ajax({
+		      type:"POST",
+		      url:"view_phonebook2.php",
+		      success: function(data){
+			      $("#viewlist").append(data);
+			    
+		      }
+	   });
+	    $.ajax({
+		      type:"POST",
+		      url:"view_mail.php",
+		      success: function(data){
+			      $("#viewmail").append(data);
+			    
+		      }
+	   });
+	   $("#friends").click(function(){
+	     $("#contact").show();
+	      $("#date_view").hide();
+	      $("#search").hide();
+	       $("#pic").hide();
+	       $("#mail").hide();
+	   });
+	   $("#Search").click(function(){
+	     $("#search").show();
+	      $("#contact").hide();
+	       $("#date_view").hide();
+	        $("#pic").hide();
+	        $("#mail").hide();
+	   
+	   });
+	   
+		$("#add_btn").click(function(){
+	        
+	        $("#contact").show();
+	        
+	        
+		      var addObj={
+			      "firstname":$("input[name='firstname']").val(),
+			      "lastname":$("input[name='lastname']").val(),
+			      "number":$("input[name='number']").val()
+			
+		    	};
+			 $.ajax({
+			      type:"POST",
+			      url:"add_phonebook2.php",
+			      data:addObj,
+			      success:function(data){
+				
+				      $("#viewlist").html(data);
+						$("#contact").show();
+			      }/*,
+			      error:function(data){
+			            alert(data);
+					}*/
+			      
+		      });
+		});
+   
+   	$("#date2").click(function(){
+   	    $("#date_view").show();
+   	     $("#contact").hide();
+   	      $("#search").hide();
+   	      $("#pic").hide();
+   	      $("#mail").hide();
+   	      
+   		$("#date_view").datepicker({
+   			showButtonPanel:true
+   		});
+   	});
+   	
+
+	   $("#register_btn").click(function(){
+	   	$("#dialog_register").dialog({
+	   			autoOpen:true,
+						resizable: false,
+						modal:true,
+						show:"bounce",
+						hide:"explode",
+						buttons:{
+							"Register Me":function(){
+										var registerObj={
+											"Username":$("input[name='Username']").val(),
+							
+											"Password":$("input[name='Password']").val(),
+											"Password2":$("input[name='Password2']").val()
+                               
+		    							};
+							
+									  $.ajax({
+											type:"POST",
+											url:"reg_validation.php",
+											data:registerObj,
+											success:function(data){
+								
+												alert("You had registered successfully...");
+											$(document.location.reload(true));
+											},
+											error:function(data){
+											
+			
+											}
+							
+									});
+		     					},
+		     					Cancel:function(){
+		     						$(this).dialog("close");
+		     					}
+						}
+	   	});
+	   });
+	   
+	   $("#search_img").click(function(){
+	       $value = $("input[name = 'search']").val();
+	   	 if($value != ""){
+	       		var datum = {"search" : $("input[name = 'search']").val()};
+       			$.ajax({
+		    			type:"POST",
+		    			url: "search_phonebook2.php",
+		    			data: datum,
+		    			success: function(data){
+		    				$("#search_table").html(data);
+		    				$("#search_table").slideDown(5000);
+		    				$(".toggler").hide();
+		    			},
+		    			error: function(data){
+		    			}
+       		  });
+		 	}else{
+		    	    $("#search_table").html("Nothing to search!");
+		    		 $("#search_table").slideDown("not so fast");
+		    		 $(".toggler").hide();
+		 	}
+    });
+	  $("input").focus(function(){
+                $(this).css("background-color","white");
+     });
+     $("input").blur(function(){
+                     $(this).css("background-color","gray");
+     });
+	  $("#login_form, #register_form,#contact,#search,#mail,#ning").hide();
+	  $("#user_table").show();
+     $("#div_login").click(function(){
+                 $("#login_form").fadeIn();
+     });
+     
+     
+     $("#show_notice").click(function(){
+		
+								$.ajax({
+									 		type:"POST",
+										   url:"getContactBeingShared.php",
+										   success: function(data){
+										  		$("#contact_shared").append(data);
+										  		//alert(data);
+										   },
+										   error: function(data){
+										     
+										   }
+								});
+			  });
+			  
+			   $('#logwar').click(function(){
+			      $("#ning").show();
+			  
+			  
+			  });
+			  $('#share').click(function(){
+			      $("#mail").show();
+			      $("#contact").hide();
+   	         $("#search").hide();
+   	         $("#date_view").hide();
+   	          $("#pic").hide();
+			  
+			  
+			  });
+  
+         
+});
+   
+function deletelist(id){
+   	 var deleteObj={"id":id};
+									$.ajax ({
+								
+										   type:"POST",
+										   url:"delete_phonebook2.php",
+										   data:deleteObj,
+										   
+										   success: function(data){
+										  
+										         $(document.getElementById(deleteObj.id)).remove();
+										   		 $(document.location.reload(true));
+										   },
+										   error: function(data){
+										     
+										   }
+									}); 
+		 
+}
+function deletelist2(id){
+   	 var deleteObj={"id":id};
+									$.ajax ({
+								
+										   type:"POST",
+										   url:"delete_msg.php",
+										   data:deleteObj,
+										   
+										   success: function(data){
+										         alert(id);
+										         $(document.getElementById(deleteObj.id)).remove();
+										   		 $(document.location.reload(true));
+										   },
+										   error: function(data){
+										     
+										   }
+									}); 
+		 
+}
+
+function editlist(id){
+
+
+var editObj={"id":id};
+		 
+									$.ajax({
+											type:"POST",
+											data:editObj,
+											url:"edit_phonebook2.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													$("input[name='edit_id']").val(obj.edit_id);
+												  
+													$("input[name='edit_firstname']").val(obj.edit_firstname);
+													$("input[name='edit_lastname']").val(obj.edit_lastname);
+													$("input[name='edit_number']").val(obj.edit_number);
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+
+
+
+      
+$("#dialog_form").dialog({
+						autoOpen:true,
+						resizable: false,
+						modal:true,
+						show:"explode",
+						hide:"explode",
+						buttons:{
+							"Save":function(){
+							 var saveObj={
+								   "edit_id":$("input[name='edit_id']").val(),
+								   "edit_firstname":$("input[name='edit_firstname']").val(),
+								   "edit_lastname":$("input[name='edit_lastname']").val(),
+									"edit_number":$("input[name='edit_number']").val()
+								 };
+		
+								 $.ajax({
+		
+								         type:"POST",
+								         url:"save_phonebook2.php",
+								         data:saveObj,
+								         success: function(data){
+								               
+								               $(document.getElementById(saveObj)).html(data);
+								               $(document.location.reload(true));
+								               $("#contact").show();
+								          }
+								   });	
+								   
+								   	$( this ).dialog("close");
+							},
+							/*"Edit":function(){
+									var editObj={"id":id};
+		 
+									$.ajax({
+											type:"POST",
+											data:editObj,
+											url:"edit_phonebook2.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													$("input[name='edit_id']").val(obj.edit_id);
+												  
+													$("input[name='edit_firstname']").val(obj.edit_firstname);
+													$("input[name='edit_lastname']").val(obj.edit_lastname);
+													$("input[name='edit_number']").val(obj.edit_number);
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								})
+							},*/
+							Cancel:function(){
+								$( this ).dialog("close");
+							}
+						
+						}
+});
+     
+
+}
+function pick(id){
+  
+  var pickObj={"id":id};
+
+ 
+
+      $.ajax({
+											type:"POST",
+											data:pickObj,
+											url:"getContactBeingShared.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													$("input[name='pick_id']").val(obj.pick_id);
+												  
+													$("input[name='shareto']").val(obj.shareto);
+													
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+
+ 
+
+}
+function pick2(id){
+  
+  var pickObj={"id":id};
+
+ 
+
+      $.ajax({
+											type:"POST",
+											data:pickObj,
+											url:"getContactBeingShared2.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													$("input[name='pick_id']").val(obj.pick_id);
+												  
+													$("input[name='shareto']").val(obj.shareto);
+													
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+
+ 
+
+}
+function show_user(id){
+   
+    var editObj={"id":id};
+ 
+ 	             $.ajax({
+											type:"POST",
+											data:editObj,
+											url:"getData.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													
+												  
+													$("input[name='share_firstname']").val(obj.share_firstname);
+													$("input[name='share_lastname']").val(obj.share_lastname);
+													$("input[name='share_number']").val(obj.share_number);
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+								
+								       
+               $.ajax({
+										type:"POST",
+										
+										
+										url:"showUser.php",
+										success: function(data){
+											$("#user_table").html(data);
+										 
+										},
+										error: function(data){
+			
+										}
+			});
+		
+
+					$("#dialog_share").dialog({
+						autoOpen:true,
+						resizable: false,
+						modal:true,
+						hide:"explode",
+						buttons:{
+						"Share": function(){
+			           
+			            var shareObj={
+			                        
+			                        "contact":$("input[name='shareto']").val(),
+			                         "FN":$("input[name='share_firstname']").val(),
+			                         "LN":$("input[name='share_lastname']").val(),
+			                         "N":$("input[name='share_number']").val()
+			                        };
+			                        
+			                 $.ajax({
+										type:"POST",
+										
+										data:shareObj,
+										url:"sharing.php",
+										success: function(data){
+										   alert($( "input[name='shareto']").val());
+											
+										 
+										}
+										
+			});       
+			           
+								$( this ).dialog("close");		
+							}/*,
+							"Share to": function(){
+			           
+			           
+               $.ajax({
+										type:"POST",
+										
+										
+										url:"showUser.php",
+										success: function(data){
+											$("#user_table").html(data);
+										 
+										},
+										error: function(data){
+			
+										}
+			});
+			           
+								
+							}*/,
+							 Cancel: function(){
+								$( this ).dialog("close");
+							 }
+						}
+					
+					});
+				
+			
+				
+}
+function show_user2(id){
+   
+    var editObj={"id":id};
+ 
+ 	             $.ajax({
+											type:"POST",
+											data:editObj,
+											url:"getData2.php",
+											success: function(data){
+												
+													var obj= JSON.parse(data);
+													
+												  
+													$("input[name='share_firstname']").val(obj.share_firstname);
+													$("input[name='share_lastname']").val(obj.share_lastname);
+													$("input[name='share_number']").val(obj.share_number);
+												
+											
+											},
+											error: function(data){
+												  alert(JSON.stringify(data));
+											}
+								});
+								
+								       
+               $.ajax({
+										type:"POST",
+										
+										
+										url:"showUser.php",
+										success: function(data){
+											$("#user_table").html(data);
+										 
+										},
+										error: function(data){
+			
+										}
+			});
+		
+
+					$("#dialog_share").dialog({
+						autoOpen:true,
+						resizable: false,
+						modal:true,
+						hide:"explode",
+						buttons:{
+						"Share": function(){
+			           
+			            var shareObj={
+			                        
+			                        "contact":$("input[name='shareto']").val(),
+			                         "FN":$("input[name='share_firstname']").val(),
+			                         "LN":$("input[name='share_lastname']").val(),
+			                         "N":$("input[name='share_number']").val()
+			                        };
+			                        
+			                 $.ajax({
+										type:"POST",
+										
+										data:shareObj,
+										url:"sharing2.php",
+										success: function(data){
+										   alert($( "input[name='shareto']").val());
+											
+										 
+										}
+										
+			});       
+			           
+								$( this ).dialog("close");		
+							}/*,
+							"Share to": function(){
+			           
+			           
+               $.ajax({
+										type:"POST",
+										
+										
+										url:"show_User2.php",
+										success: function(data){
+											$("#user_table").html(data);
+										 
+										},
+										error: function(data){
+			
+										}
+			});
+			           
+								
+							}*/,
+							 Cancel: function(){
+								$( this ).dialog("close");
+							 }
+						}
+					
+					});
+				
+			
+				
+}
+function addtophone(Fn,Ln,N){
+  var addObj={"FN":Fn,"LN":Ln,"N":N};
+		 
+									$.ajax({
+											type:"POST",
+											data:addObj,
+											url:"addto.php",
+											success: function(data){
+											
+											alert("work");
+												
+													
+											
+											}
+								});
+
+
+
+      
+
+}
+
+function acceptContact(){
+
+	  
+		$.ajax({
+			type:"POST",
+			url:"acceptContact.php",
+		
+			success:function(){
+				$("#viewlist").append(data);
+			},
+			error:function(){
+				alert(data);
+			}
+			
+		});
+
+}
+
+					
+
+
+
+

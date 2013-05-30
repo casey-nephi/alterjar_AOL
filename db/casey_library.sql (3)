@@ -1,0 +1,121 @@
+-- phpMyAdmin SQL Dump
+-- version 3.3.9
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 15, 2013 at 04:33 AM
+-- Server version: 5.5.8
+-- PHP Version: 5.3.5
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `casey_library`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Books`
+--
+
+CREATE TABLE IF NOT EXISTS `Books` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `Type` varchar(20) DEFAULT NULL,
+  `Title` varchar(50) DEFAULT NULL,
+  `Rent_price` int(11) DEFAULT NULL,
+  `Stock` int(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+
+--
+-- Dumping data for table `Books`
+--
+
+INSERT INTO `Books` (`id`, `Type`, `Title`, `Rent_price`, `Stock`) VALUES
+(1, 'love', 'Romeo and Juliet', 30, 100),
+(2, 'action', 'The MUMMY', 20, 100),
+(3, 'comedy', 'Mr. Bean', 20, 100),
+(8, 'action', 'harry potter (book 1)', 20, 100),
+(10, 'love', 'love', 10, 100),
+(11, 'action', 'harry potter (book 2)', 20, 100),
+(12, 'action', 'harry potter (book 4)', 20, 100),
+(13, 'action', 'harry potter (book 5)', 20, 100),
+(14, 'action', 'harry potter (book 6)', 25, 100),
+(16, 'action', 'harry potter (book 7)', 30, 100),
+(18, 'love', 'Romance', 20, 100),
+(19, 'comedy', 'three stoges', 20, 300),
+(20, 'horror', 'The knife', 10, 10),
+(21, 'horror', 'Blood', 20, 50),
+(22, 'horror', 'The Grudge', 30, 100),
+(23, 'action', 'harry potter (book 3)', 20, 100),
+(24, 'horror', 'joanne ang unang aswang', 1000, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Librarian`
+--
+
+CREATE TABLE IF NOT EXISTS `Librarian` (
+  `id` int(1) NOT NULL DEFAULT '0',
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Librarian`
+--
+
+INSERT INTO `Librarian` (`id`, `username`, `password`) VALUES
+(1, 'casey', 'badin');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Orders`
+--
+
+CREATE TABLE IF NOT EXISTS `Orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `DATE` date NOT NULL,
+  `DueDate` date NOT NULL,
+  `Num_book_rent` int(11) NOT NULL,
+  `Deliver` varchar(3) NOT NULL,
+  `Book_id` int(11) NOT NULL,
+  `Rent_price` int(11) NOT NULL,
+  `Firstname` varchar(50) NOT NULL,
+  `Lastname` varchar(50) NOT NULL,
+  `Brgy` varchar(50) NOT NULL,
+  `Number` int(11) NOT NULL,
+  `Status` varchar(15) NOT NULL DEFAULT 'Not Paid',
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=27 ;
+
+--
+-- Dumping data for table `Orders`
+--
+
+INSERT INTO `Orders` (`id`, `DATE`, `DueDate`, `Num_book_rent`, `Deliver`, `Book_id`, `Rent_price`, `Firstname`, `Lastname`, `Brgy`, `Number`, `Status`) VALUES
+(10, '2013-05-08', '2013-05-11', 1, 'YES', 8, 20, 'jossel', 'barnobal', 'Bahay', 999, 'RETURNED'),
+(11, '2013-05-08', '2013-05-11', 10, 'YES', 3, 20, 'jossel', 'barnobal', 'Bahay', 999, 'RETURNED'),
+(12, '2013-05-06', '2013-05-06', 2, 'YES', 22, 30, 'Kenneth Bob', 'Arrozado', 'Buntay (Pob.)', 2147483647, 'RETURNED'),
+(13, '2013-05-08', '2013-05-11', 6, 'YES', 3, 20, 'casey', 'altejar', 'Victory (Pob.)', 123, 'RETURNED'),
+(14, '2013-05-14', '2013-05-17', 8, 'YES', 16, 30, 'vhanee lou', 'laher', 'Combis', 1225, 'Borrowed'),
+(15, '2013-05-14', '2013-05-17', 5, 'YES', 19, 20, 'vincent', 'laher', 'Combis', 15963, 'Borrowed'),
+(16, '2013-05-14', '2013-05-17', 5, 'YES', 21, 20, 'vanessa', 'laher', 'Combis', 12489, 'Borrowed'),
+(17, '2013-05-14', '2013-05-17', 1, 'YES', 20, 10, 'venice', 'laher', 'Combis', 16723, 'Borrowed'),
+(19, '2013-05-14', '2013-05-17', 1, 'NO', 8, 20, 'jesusa', 'cortezo', 'Santa Fee (Pob.)', 14632, 'Borrowed'),
+(22, '2013-05-14', '2013-05-17', 2, 'NO', 20, 10, 'Jay', 'Say', 'Tuy-a', 2147483647, 'RETURNED'),
+(23, '2013-05-14', '2013-05-17', 1, 'NO', 2, 20, 'marvin', 'wehh', 'Combis', 14658, 'RETURNED'),
+(24, '2013-05-14', '2013-05-17', 10, 'NO', 3, 20, 'lemuel', 'lucanas', 'Bayabas', 9, 'RETURNED'),
+(25, '2013-05-14', '2013-05-17', 3, 'NO', 1, 30, 'lknj', 'jnknj', 'Alangilan', 154545, 'RETURNED'),
+(26, '2013-05-15', '2013-05-18', 4, 'YES', 14, 25, 'casey', 'licky', 'Can-aporong', 158588, 'RETURNED');
